@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "password",
-  database: "greatBaySchema"
+  database: "greatBay_DB"
 });
 
 // connect to the mysql server and sql database
@@ -45,7 +45,38 @@ function start() {
 //Define function for postAuction and bidAuction.
 
 //postAuction = item_name, category, starting_bid
-
+function postAuction() {
+  console.log("Let's create a new item to POST\n");
+  
+  inquirer
+    .prompt([{
+      type: 'input',
+      message: "What is the name of the item you'd like to post?",
+      name: "userItem"
+    },
+    {
+      type: 'input',
+      message: "What category would you like to list this under?",
+      name: "userCategory"
+    },
+    {
+      type: 'number',
+      message: "What would you like to start the bidding at?",
+      name: "startBid"
+    }]).then(function(answer) {
+      var query = connection.query(
+        "INSERT INTO auctions SET ?",
+        {
+          item_name: answer.userItem,
+          category: answer.userCategory,
+          starting_bid: answer.startBid,
+          highest_bid: answer.startBid
+        }
+      )
+      console.log(query.sql);
+      start();
+    });
+}
 
 
 //bidAuction = list of item_name, select from list, then console asks what they want to bid.
