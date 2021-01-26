@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
 
   // Your password
   password: "password",
-  database: "greatBay_DB"
+  database: "greatBaySchema"
 });
 
 // connect to the mysql server and sql database
@@ -42,5 +42,11 @@ function start() {
       }
     });
 }
+//Define function for postAuction and bidAuction.
+
+//postAuction = item_name, category, starting_bid
 
 
+
+//bidAuction = list of item_name, select from list, then console asks what they want to bid.
+//if bid >= starting_bid, update values in table. If not, console log bid too low and boot to selection screen.
