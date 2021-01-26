@@ -78,6 +78,32 @@ function postAuction() {
     });
 }
 
-
 //bidAuction = list of item_name, select from list, then console asks what they want to bid.
 //if bid >= starting_bid, update values in table. If not, console log bid too low and boot to selection screen.
+
+function bidAuction() {
+  console.log("Let's start the bidding!");
+  connection.query("SELECT * FROM auctions", function(err, res) {
+    if (err) throw err;
+    inquirer
+      .prompt(
+        {
+          name: "letsBid",
+          message: "What item would you like to bid on?",
+          type: 'list',
+          choices: res.map(object => object.item_name)
+        }
+      ).then(function(answer) {
+        inquirer
+          .prompt(
+            {
+              name: "userBid",
+              message: "How much would you like to bid for this item?",
+              type: 'number'
+            }
+          ).then(function(guessBid) {
+            if (guessBid > answer.highest_bid)
+          })
+      })
+  });
+}
